@@ -14,15 +14,14 @@ class _TransactionFormState extends State<TransactionForm> {
 
   final valueController = TextEditingController();
 
-  _submitForm()
-  {
-      final title =  titleController.text;
-      final value =  double.tryParse(valueController.text) ?? 0.0;
+  _submitForm() {
+    final title = titleController.text;
+    final value = double.tryParse(valueController.text) ?? 0.0;
 
-      if(title.isEmpty || value <= 0 ){
-        return;
-      }
-      widget.onSubmit(title, value);
+    if (title.isEmpty || value <= 0) {
+      return;
+    }
+    widget.onSubmit(title, value);
   }
 
   @override
@@ -36,26 +35,41 @@ class _TransactionFormState extends State<TransactionForm> {
             TextField(
               controller: titleController,
               onSubmitted: (_) => _submitForm(),
-              decoration: InputDecoration
-            (labelText: 'Título'),
+              decoration: InputDecoration(labelText: 'Título'),
             ),
             TextField(
               controller: valueController,
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
               onSubmitted: (_) => _submitForm(),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Valor (R\$)',
               ),
             ),
+            Container(
+              height: 70,
+              child: Row(
+                children: [
+                  const Text('Nenhuma data selecionada.'),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text('Selecionar Data'),
+                    style: TextButton.styleFrom(
+                        foregroundColor: Theme.of(context).colorScheme.primary
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                TextButton(
+                ElevatedButton(
                   onPressed: _submitForm,
                   child: Text('Nova Transação'),
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.indigoAccent,
-                  ),
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                          foregroundColor: Theme.of(context).textTheme.labelLarge?.color)
                 ),
               ],
             )

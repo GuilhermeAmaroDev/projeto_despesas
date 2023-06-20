@@ -20,14 +20,19 @@ class DespesasApp extends StatelessWidget {
         theme: tema.copyWith(
           colorScheme: tema.colorScheme.copyWith(
             primary: Colors.indigo,
-            secondary: Colors.indigo,
+            secondary: Colors.indigoAccent,
           ),
           textTheme: tema.textTheme.copyWith(
-            headline6: const TextStyle(
+            titleMedium: const TextStyle(
               fontFamily: 'Quicksand',
               fontSize: 20,
-              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
+            labelLarge: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold
+            )
           ),
           appBarTheme: const AppBarTheme(
             titleTextStyle: TextStyle(
@@ -106,10 +111,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Container(
-            width: double.infinity,
-            child: const Card(elevation: 5, child: Text('Gráfico')),
-          ),
+          // Container(
+          //   width: double.infinity,
+          //   child: const Card(elevation: 5, child: Text('Gráfico')),
+          // ),
           Chart(_recentTransactions),
           TransactionList(_transactions)
         ]),

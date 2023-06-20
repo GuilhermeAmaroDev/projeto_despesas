@@ -31,7 +31,7 @@ class Chart extends StatelessWidget {
       return {
       'day': DateFormat.E().format(weekDay)[0],
       'value' : totalSum };
-    });
+    }).reversed.toList();
   }
 
   ///Para calcular o total que foi gasto na semana
