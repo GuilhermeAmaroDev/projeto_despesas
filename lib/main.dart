@@ -23,21 +23,18 @@ class DespesasApp extends StatelessWidget {
             secondary: Colors.indigoAccent,
           ),
           textTheme: tema.textTheme.copyWith(
-            titleMedium: const TextStyle(
-              fontFamily: 'Quicksand',
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-            labelLarge: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-            )
-          ),
+              titleMedium: const TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+              labelLarge: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.bold)),
           appBarTheme: const AppBarTheme(
             titleTextStyle: TextStyle(
-              fontFamily: 'Quicksand',
-              fontSize: 20,
+              fontFamily: 'OpenSans',
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
@@ -57,19 +54,21 @@ class _MyHomePageState extends State<MyHomePage> {
       id: 't1',
       title: 'Xbox',
       value: 1.680,
-      date: DateTime.now().subtract(Duration(days:3)),
+      date: DateTime.now().subtract(Duration(days: 3)),
     ),
     Transaction(
       id: 't2',
       title: 'Sofá',
       value: 2.450,
-      date: DateTime.now().subtract(Duration(days:4)),
+      date: DateTime.now().subtract(Duration(days: 4)),
     )
   ];
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((tr) {
-      return tr.date.isAfter(DateTime.now().subtract(Duration (days: 7),));
+      return tr.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
     }).toList();
   }
 
@@ -91,10 +90,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
-        context: context,
-        builder: (_) {
-          return TransactionForm(_addTransaction);
-        });
+      context: context,
+      builder: (_) {
+        return TransactionForm(_addTransaction);
+      },
+    );
   }
 
   @override
