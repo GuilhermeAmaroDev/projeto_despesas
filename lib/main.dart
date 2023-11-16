@@ -49,9 +49,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _transactions = [
-
-  ];
+  final List<Transaction> _transactions = [];
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((tr) {
@@ -77,6 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
         .pop(); // PRA FECHAR O MODAL E SALVAR O ITEM NA LISTA/TELA
   }
 
+  _deleteTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((tr) => tr.id == id);
+    });
+  }
+
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -88,24 +92,32 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: const Text('Despesas Pessoais'),
+      actions: [
+        IconButton(
+            onPressed: () => _openTransactionFormModal(context),
+            icon: const Icon(Icons.add))
+      ],
+    );
+
+    final alturaDisponivel = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Despesas Pessoais'),
-        actions: [
-          IconButton(
-              onPressed: () => _openTransactionFormModal(context),
-              icon: const Icon(Icons.add))
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          // Container(
-          //   width: double.infinity,
-          //   child: const Card(elevation: 5, child: Text('Gráfico')),
-          // ),
-          Chart(_recentTransactions),
-          TransactionList(_transactions)
+          Container(
+            height: alturaDisponivel * 0.3,
+            child: Chart(_recentTransactions),
+          ),
+          Container(
+            height: alturaDisponivel * 0.7,
+            child: TransactionList(_transactions, _deleteTransaction),
+          )
         ]),
       ),
       floatingActionButton: FloatingActionButton(
